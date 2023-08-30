@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         Blueprint::mixin(new BluePrintMixins());
 
         FilamentAsset::register([
-            Css::make('scrollbar.css', __DIR__.'/../../resources/css/scrollbar.css'),
+            Css::make('scrollbar', __DIR__.'/../../resources/css/scrollbar.css'),
         ]);
     }
 }
