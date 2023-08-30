@@ -58,14 +58,12 @@ class ApplicationResource extends Resource
                     ->color('primary')
                     ->icon('heroicon-m-document-duplicate')
                     ->iconPosition(IconPosition::After)
-                    ->sortable()
                     ->copyable(),
                 TextColumn::make('secret')
                     ->label('App Secret')
                     ->color('primary')
                     ->icon('heroicon-m-document-duplicate')
                     ->iconPosition(IconPosition::After)
-                    ->sortable()
                     ->copyable(),
                 ToggleColumn::make('enabled')
                     ->label('Active Status')

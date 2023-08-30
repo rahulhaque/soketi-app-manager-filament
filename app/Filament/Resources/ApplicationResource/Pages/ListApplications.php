@@ -5,6 +5,8 @@ namespace App\Filament\Resources\ApplicationResource\Pages;
 use App\Filament\Resources\ApplicationResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Pages\ListRecords\Tab;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListApplications extends ListRecords
 {
@@ -14,6 +16,15 @@ class ListApplications extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    public function getTabs(): array
+    {
+        return [
+            'all' => Tab::make(),
+            'active' => Tab::make()->modifyQueryUsing(fn (Builder $query) => $query->where('enabled', true)),
+            'inactive' => Tab::make()->modifyQueryUsing(fn (Builder $query) => $query->where('enabled', false)),
         ];
     }
 }
