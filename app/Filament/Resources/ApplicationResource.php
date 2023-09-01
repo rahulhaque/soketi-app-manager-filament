@@ -54,6 +54,7 @@ class ApplicationResource extends Resource
                     ->searchable()
                     ->sortable(),
             ])
+            ->defaultSort('id', 'desc')
             ->filters([
                 //
             ])
