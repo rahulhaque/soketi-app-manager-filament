@@ -17,6 +17,8 @@ class ApplicationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?int $navigationSort = 1;
+
     public static function table(Table $table): Table
     {
         return $table
@@ -26,37 +28,40 @@ class ApplicationResource extends Resource
                     ->color('primary')
                     ->icon('heroicon-m-document-duplicate')
                     ->iconPosition(IconPosition::After)
+                    ->searchable()
                     ->sortable()
                     ->copyable(),
                 TextColumn::make('name')
                     ->label('App Name')
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('key')
                     ->label('App Key')
                     ->color('primary')
                     ->icon('heroicon-m-document-duplicate')
                     ->iconPosition(IconPosition::After)
+                    ->searchable()
                     ->copyable(),
                 TextColumn::make('secret')
                     ->label('App Secret')
                     ->color('primary')
                     ->icon('heroicon-m-document-duplicate')
                     ->iconPosition(IconPosition::After)
+                    ->searchable()
                     ->copyable(),
                 ToggleColumn::make('enabled')
                     ->label('Active Status')
+                    ->searchable()
                     ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->color('warning'),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ])
             ->emptyStateActions([
                 // Tables\Actions\CreateAction::make(),
