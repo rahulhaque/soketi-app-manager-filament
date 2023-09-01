@@ -3,16 +3,27 @@
 namespace App\Filament\Resources\ApplicationResource\Pages;
 
 use App\Filament\Resources\ApplicationResource;
+use App\Filament\Resources\ApplicationResource\Widgets\ApplicationStats;
 use Filament\Actions\CreateAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Pages\Concerns\ExposesTableToWidgets;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Pages\ListRecords\Tab;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListApplications extends ListRecords
 {
+    use ExposesTableToWidgets;
+
     protected static string $resource = ApplicationResource::class;
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ApplicationStats::class,
+        ];
+    }
 
     protected function getHeaderActions(): array
     {
@@ -46,9 +57,9 @@ class ListApplications extends ListRecords
     public function getTabs(): array
     {
         return [
-            'all' => Tab::make(),
-            'active' => Tab::make()->modifyQueryUsing(fn (Builder $query) => $query->where('enabled', true)),
-            'inactive' => Tab::make()->modifyQueryUsing(fn (Builder $query) => $query->where('enabled', false)),
+            'all' => Tab::make()->icon('heroicon-o-bars-3'),
+            'active' => Tab::make()->icon('heroicon-o-check-circle')->modifyQueryUsing(fn (Builder $query) => $query->where('enabled', true)),
+            'inactive' => Tab::make()->icon('heroicon-o-x-circle')->modifyQueryUsing(fn (Builder $query) => $query->where('enabled', false)),
         ];
     }
 }
