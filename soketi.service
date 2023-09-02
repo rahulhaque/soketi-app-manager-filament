@@ -1,0 +1,18 @@
+[Unit]
+Description=Soketi WebSocket Service
+After=mysql.service redis-server.service
+
+[Service]
+Type=simple
+Restart=on-failure
+User=www-data
+Group=www-data
+Environment=HOME=/home/<username>
+WorkingDirectory=/var/www/soketi-app-manager-filament
+ExecStart=soketi start --config=soketi.json
+RestartSec=30s
+KillSignal=SIGINT
+LimitNOFILE=10240
+
+[Install]
+WantedBy=multi-user.target

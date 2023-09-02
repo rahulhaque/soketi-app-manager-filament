@@ -1,66 +1,70 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Soketi App Manager
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Simple application manager for [Soketi](https://soketi.app/) websocket server with a intuitive user interface. Made with [Filamentphp](https://filamentphp.com/) and 💕
 
-## About Laravel
+**Soketi App Manager** provides a user-friendly interface for managing your Soketi websocket applications. With this, you can effortlessly **create**, **serve**, **view**, **edit**, **delete** and **search** multiple websocket applications, streamlining your app management process. The whole setup process is made simpler and easier for anyone who wants to try it out.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Requirements
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- PHP^8.1
+- Composer^2
+- MySQL^8
+- Redis^6
+- Npm^8
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Installation
 
-## Learning Laravel
+```bash
+# Clone the repo
+git clone https://github.com/rahulhaque/soketi-app-manager-filament.git
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# Go to the directory
+cd soketi-app-manager-filament
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+# Copy .env.example to .env
+cp .env.example .env
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# Install dependencies
+composer install
 
-## Laravel Sponsors
+# Generate application key
+php artisan key:generate
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+# Migrate database
+php artisan migrate
 
-### Premium Partners
+# Create the admin user
+php artisan make:filament-user
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+# Run the application
+php artisan serve
 
-## Contributing
+# Install soketi websocket server
+npm install -g @soketi/soketi
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Copy soketi.json.example to soketi.json
+cp soketi.json.example soketi.json
 
-## Code of Conduct
+# Run soketi server
+soketi start --config=soketi.json
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Screenshots
 
-## Security Vulnerabilities
+1. Login
+<img title="login" src="https://github.com/rahulhaque/soketi-app-manager-filament/blob/master/screenshots/login.png" width="100%"/>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+2. Create application
+<img title="create-app" src="https://github.com/rahulhaque/soketi-app-manager-filament/blob/master/screenshots/create-app.png" width="100%"/>
 
-## License
+3. View applications
+<img title="view-apps" src="https://github.com/rahulhaque/soketi-app-manager-filament/blob/master/screenshots/view-apps.png" width="100%"/>
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+4. Edit application
+<img title="edit-app" src="https://github.com/rahulhaque/soketi-app-manager-filament/blob/master/screenshots/edit-app.png" width="100%"/>
+
+## More Info
+
+Thank you for visiting. This project is solely made for learning purposes. Outcome of my journey of learning [Filamentphp](https://filamentphp.com/). The structure of the project and the code practices may prove useful to new learners who are exploring new technologies.
+
+Spare a ⭐ to keep me motivated. 😃

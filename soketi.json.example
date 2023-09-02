@@ -1,0 +1,53 @@
+{
+    "debug": false,
+    "host": "127.0.0.1",
+    "port": 6001,
+    "cache.driver": "redis",
+    "queue.driver": "redis",
+    "rateLimiter.driver": "redis",
+    "appManager": {
+        "driver": "mysql",
+        "cache": {
+            "enabled": true,
+            "ttl": 3600
+        },
+        "array": {
+            "apps": []
+        },
+        "mysql": {
+            "table": "applications",
+            "version": "8.0",
+            "useMysql2": false
+        }
+    },
+    "database": {
+        "mysql": {
+            "host": "127.0.0.1",
+            "port": "3306",
+            "user": "soketi",
+            "password": "",
+            "database": "soketi_app_manager"
+        },
+        "redis": {
+            "host": "127.0.0.1",
+            "port": 6379,
+            "db": 0,
+            "username": null,
+            "password": null,
+            "keyPrefix": "soketi_",
+            "sentinels": null,
+            "sentinelPassword": null,
+            "name": "mymaster",
+            "clusterNodes": []
+        }
+    },
+    "metrics": {
+        "enabled": false,
+        "driver": "prometheus",
+        "host": "127.0.0.1",
+        "prometheus": {
+            "prefix": "soketi_"
+        },
+        "port": 9601
+    }
+}
