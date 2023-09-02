@@ -59,7 +59,7 @@ class ApplicationResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->color('warning'),
+                Tables\Actions\EditAction::make()->button()->color('gray'),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
