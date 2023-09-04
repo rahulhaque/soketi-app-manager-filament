@@ -105,7 +105,7 @@
 
                 The `MIX_*` environment variables are typically declared in your Laravel application's `.env` file:
 
-                ```
+                ```bash
                 PUSHER_APP_KEY=app-key
                 PUSHER_APP_ID=app-id
                 PUSHER_APP_SECRET=app-secret
@@ -120,4 +120,9 @@
             </article>
         </details>
     </div>
+    <script type="text/javascript">
+        document.addEventListener('livewire:initialized', () => {
+            hljs.highlightAll();
+        })
+    </script>
 </x-filament-panels::page>

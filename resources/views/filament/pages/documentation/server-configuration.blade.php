@@ -77,4 +77,9 @@
             </article>
         </details>
     </div>
+    <script type="text/javascript">
+        document.addEventListener('livewire:initialized', () => {
+            hljs.highlightAll();
+        })
+    </script>
 </x-filament-panels::page>

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Mixins\BluePrintMixins;
 use Filament\Support\Assets\Css;
+use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
@@ -39,6 +40,8 @@ class AppServiceProvider extends ServiceProvider
 
         FilamentAsset::register([
             Css::make('scrollbar', __DIR__.'/../../resources/css/scrollbar.css'),
+            Css::make('highlight', __DIR__.'/../../resources/css/monokai.min.css'),
+            Js::make('highlight', __DIR__.'/../../resources/js/highlight.min.js'),
         ]);
     }
 }
