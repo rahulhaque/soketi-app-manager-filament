@@ -13,7 +13,7 @@ class ClientConfiguration extends Page
     public function getBreadcrumbs(): array
     {
         return [
-            '/applications' => 'Applications',
+            '#' => 'Documentation',
             '/client-configuration' => 'Client Configuration',
         ];
     }

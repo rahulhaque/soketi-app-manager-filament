@@ -13,7 +13,7 @@ class ServerConfiguration extends Page
     public function getBreadcrumbs(): array
     {
         return [
-            '/applications' => 'Applications',
+            '#' => 'Documentation',
             '/server-configuration' => 'Server Configuration',
         ];
     }
