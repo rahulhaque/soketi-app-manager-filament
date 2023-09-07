@@ -12,6 +12,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Support\HtmlString;
 use Illuminate\Validation\ValidationException;
 
 class EditApplication extends EditRecord
@@ -22,6 +23,7 @@ class EditApplication extends EditRecord
     {
         return [
             DeleteAction::make()
+                ->icon('heroicon-m-trash')
                 ->successNotificationTitle('Application deleted successfully!'),
         ];
     }
@@ -181,6 +183,10 @@ class EditApplication extends EditRecord
                             ->icon('heroicon-o-globe-alt')
                             ->schema([
                                 Textarea::make('webhooks')
+                                    ->hint(
+                                        new HtmlString('<a href="https://pusher.com/docs/channels/server_api/webhooks/" title="Consider reading Pusher documentation" target="_blank">Documentation</a>')
+                                    )
+                                    ->hintColor('primary')
                                     ->required()
                                     ->json()
                                     ->afterStateHydrated(fn (TextArea $component, array $state) => $component->state(json_encode($state)))

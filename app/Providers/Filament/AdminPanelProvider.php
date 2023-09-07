@@ -45,8 +45,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->navigationGroups([
                 NavigationGroup::make()
-                     ->label('Documentation')
-                     ->icon('heroicon-o-document-text'),
+                    ->label('Documentation')
+                    ->icon('heroicon-o-document-text'),
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -29,6 +29,7 @@ class ListApplications extends ListRecords
     {
         return [
             CreateAction::make()
+                ->icon('heroicon-m-plus-circle')
                 ->successNotificationTitle('Application created successfully!')
                 ->form([
                     TextInput::make('name')
