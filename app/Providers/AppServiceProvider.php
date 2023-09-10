@@ -6,6 +6,7 @@ use App\Mixins\BluePrintMixins;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Facades\FilamentView;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Blade;
@@ -43,5 +44,7 @@ class AppServiceProvider extends ServiceProvider
             Css::make('highlight', __DIR__.'/../../resources/css/monokai.min.css'),
             Js::make('highlight', __DIR__.'/../../resources/js/highlight.min.js'),
         ]);
+
+        FilamentView::registerRenderHook('panels::head.start', fn(): string => '<meta name="robots" content="none,noarchive,nositelinkssearchbox">');
     }
 }
