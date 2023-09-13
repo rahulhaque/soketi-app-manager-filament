@@ -45,6 +45,6 @@ class AppServiceProvider extends ServiceProvider
             Js::make('highlight', __DIR__.'/../../resources/js/highlight.min.js'),
         ]);
 
-        FilamentView::registerRenderHook('panels::head.start', fn(): string => '<meta name="robots" content="none,noarchive,nositelinkssearchbox">');
+        FilamentView::registerRenderHook('panels::head.start', fn (): string => '<meta name="robots" content="none,noarchive,nositelinkssearchbox">');
     }
 }
