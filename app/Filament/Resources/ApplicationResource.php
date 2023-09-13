@@ -10,6 +10,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class ApplicationResource extends Resource
 {
@@ -22,6 +23,7 @@ class ApplicationResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query->ownershipAware())
             ->columns([
                 TextColumn::make('id')
                     ->label('App ID')
@@ -53,6 +55,20 @@ class ApplicationResource extends Resource
                     ->label('Active Status')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('creator.name')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('updater.name')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('created_at')
+                    ->searchable()
+                    ->sortable()
+                    ->dateTime('M d, Y h:ia'),
+                TextColumn::make('updated_at')
+                    ->searchable()
+                    ->sortable()
+                    ->dateTime('M d, Y h:ia'),
             ])
             ->defaultSort('id', 'desc')
             ->filters([
