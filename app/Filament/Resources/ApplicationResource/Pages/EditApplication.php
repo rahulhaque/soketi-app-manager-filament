@@ -4,6 +4,7 @@ namespace App\Filament\Resources\ApplicationResource\Pages;
 
 use App\Filament\Resources\ApplicationResource;
 use Filament\Actions\DeleteAction;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\Textarea;
@@ -12,6 +13,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 use Illuminate\Validation\ValidationException;
 
@@ -80,6 +82,15 @@ class EditApplication extends EditRecord
                                     ->label('Is user authentication enabled?')
                                     ->required()
                                     ->inline(false)
+                                    ->columnSpan(3),
+                                Select::make('created_by')
+                                    ->label('Owner')
+                                    ->relationship('creator', 'name')
+                                    ->required()
+                                    ->native(false)
+                                    ->searchable(['name', 'email'])
+                                    ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->name} ({$record->email})")
+                                    ->visible(fn (): bool => auth()->user()->is_admin && auth()->id())
                                     ->columnSpan(3),
                             ]),
                         Tab::make('Limits')
