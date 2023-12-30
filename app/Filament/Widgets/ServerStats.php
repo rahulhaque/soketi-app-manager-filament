@@ -24,24 +24,22 @@ class ServerStats extends BaseWidget
 
             $soketiConnected = parse_prometheus('soketi_connected', $metrics->body());
             $soketiMessageSent = parse_prometheus('soketi_ws_messages_sent_total', $metrics->body());
+            $soketiProcessRuntime = parse_prometheus('soketi_process_start_time_seconds', $metrics->body());
 
             return [
-                Stat::make('Total Memory Usage', round($memoryUsage->json('memory.percent')).'%')
-                    ->description('Of '.Number::fileSize($memoryUsage->json('memory.total'), 2)),
-                Stat::make('Total Open Connection', $soketiConnected->pluck('value')->sum())
-                    ->description('Instance(s) connected'),
-                Stat::make('Total Message Sent', $soketiMessageSent->pluck('value')->sum())
-                    ->description('To connected clients'),
+                Stat::make('Server Started', now()->subSeconds(time() - $soketiProcessRuntime->pluck('value')[0])->diffForHumans()),
+                Stat::make('Total Memory Usage', round($memoryUsage->json('memory.percent')).'% of '.Number::fileSize($memoryUsage->json('memory.total'), 2)),
+                Stat::make('Total Open Connection', $soketiConnected->pluck('value')->sum()),
             ];
         } catch (\Exception $e) {
             return [
+                Stat::make('Server Runtime', 'N/A')
+                    ->description('Error getting stats. Is Soketi running?')
+                    ->color('danger'),
                 Stat::make('Total Memory Used', 'N/A')
                     ->description('Error getting stats. Is Soketi running?')
                     ->color('danger'),
                 Stat::make('Total Open Connection', 'N/A')
-                    ->description('Error getting stats. Is Soketi running?')
-                    ->color('danger'),
-                Stat::make('Total Message Sent', 'N/A')
                     ->description('Error getting stats. Is Soketi running?')
                     ->color('danger'),
             ];
