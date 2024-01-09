@@ -28,7 +28,7 @@ class ServerStats extends BaseWidget
 
             return [
                 Stat::make('Server Started', now()->subSeconds(time() - $soketiProcessRuntime->pluck('value')[0])->diffForHumans()),
-                Stat::make('Total Memory Usage', round($memoryUsage->json('memory.percent')).'% of '.Number::fileSize($memoryUsage->json('memory.total'), 2)),
+                Stat::make('Total Memory Usage', round($memoryUsage->json('memory.percent')).'% of '.Number::fileSize($memoryUsage->json('memory.total'), 1)),
                 Stat::make('Total Open Connection', $soketiConnected->pluck('value')->sum()),
             ];
         } catch (\Exception $e) {
