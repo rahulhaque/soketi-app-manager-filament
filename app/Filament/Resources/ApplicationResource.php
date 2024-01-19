@@ -24,6 +24,7 @@ class ApplicationResource extends Resource
     {
         return $table
             ->modifyQueryUsing(fn (Builder $query) => $query->ownershipAware())
+            ->recordUrl(null)
             ->columns([
                 TextColumn::make('id')
                     ->label('App ID')
