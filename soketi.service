@@ -10,7 +10,7 @@ Group=www-data
 Environment=HOME=/home/<username>
 WorkingDirectory=/var/www/soketi-app-manager-filament
 ExecStart=soketi start --config=soketi.json
-RestartSec=30s
+RestartSec=60s
 KillSignal=SIGINT
 LimitNOFILE=10240
 
