@@ -195,7 +195,7 @@ class EditApplication extends EditRecord
                             ->schema([
                                 Textarea::make('webhooks')
                                     ->hint(
-                                        new HtmlString('<a href="https://pusher.com/docs/channels/server_api/webhooks/" title="Consider reading Pusher documentation" target="_blank">Documentation</a>')
+                                        new HtmlString('<a href="https://docs.soketi.app/advanced-usage/app-webhooks" title="Consider reading Pusher documentation" target="_blank">Documentation</a>')
                                     )
                                     ->hintColor('primary')
                                     ->required()
