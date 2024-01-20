@@ -71,7 +71,7 @@ class UserResource extends Resource
                     ->color('gray'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                // Tables\Actions\DeleteBulkAction::make(),
             ])
             ->emptyStateActions([
                 // Tables\Actions\CreateAction::make(),
