@@ -54,8 +54,8 @@ soketi start --config=soketi.json
 1. Login
 <img title="login" src="screenshots/login.png" width="100%"/>
 
-2. Create application
-<img title="create-app" src="screenshots/create-app.png" width="100%"/>
+2. Dashboard
+<img title="dashboard" src="screenshots/dashboard.png" width="100%"/>
 
 3. View applications
 <img title="view-apps" src="screenshots/view-apps.png" width="100%"/>
