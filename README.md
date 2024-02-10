@@ -8,7 +8,7 @@ Simple frontend for [Soketi](https://soketi.app/) websocket server with a intuit
 
 - PHP^8.1
 - Composer^2
-- MySQL^8
+- MySQL^8|PostgreSQL^13.3
 - Redis^6
 - Npm^8
 
