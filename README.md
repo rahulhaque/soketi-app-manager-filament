@@ -2,7 +2,18 @@
 
 Simple frontend for [Soketi](https://soketi.app/) websocket server with a intuitive user interface. Made with [FilamentPHP](https://filamentphp.com/) and 💕
 
-**Soketi App Manager** provides a user-friendly interface for managing your Soketi websocket applications. You can effortlessly **create**, **serve**, **view**, **edit**, **delete** and **search** multiple websocket applications, streamlining your app management process. The whole setup process is made simpler so that anyone can easily get started with the Soketi websocket server. 🚀
+**Soketi App Manager** provides a user-friendly interface for managing your Soketi websocket applications. You can effortlessly manage multiple websocket applications, streamlining your app management process. The whole setup process is made simpler so that anyone can easily get started with the Soketi websocket server. 🚀 It currently features -
+- Dashboard to show realtime server stats.
+- Create, serve, view, edit, delete and search multiple websocket applications.
+- Interactive UI for managing application webhooks.
+- Create and manage multiple users with different roles.
+- Documentation for client and backend integration.
+
+Support the development with a ⭐ to let others know it worked for you.
+
+If you like this project, consider supporting me on [ko-fi](https://ko-fi.com/W7W2I1JIV). 🙏
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W2I1JIV)
 
 ## Requirements
 
@@ -10,7 +21,8 @@ Simple frontend for [Soketi](https://soketi.app/) websocket server with a intuit
 - Composer^2
 - MySQL^8|PostgreSQL^13.3
 - Redis^6
-- Npm^8
+- NodeJS^14
+- Soketi running with MySQL|PostgreSQL
 
 ## Installation
 
