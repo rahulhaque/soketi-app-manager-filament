@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ApplicationResource\Pages;
 
 use App\Enums\WebhookEvent;
+use App\Enums\WebhookFilter;
 use App\Filament\Resources\ApplicationResource;
 use Filament\Actions\DeleteAction;
 use Filament\Forms\Components\CheckboxList;
@@ -218,11 +219,14 @@ class EditApplication extends EditRecord
                             ->keyLabel('Header')
                             ->columnSpan(3),
                         KeyValue::make('filter')
-                            ->addActionLabel('Add filter')
                             ->hint(
                                 new HtmlString('<a href="https://docs.soketi.app/advanced-usage/app-webhooks#filtering-webhooks" target="_blank">Documentation</a>')
                             )
                             ->hintColor('primary')
+                            ->default(array_fill_keys(WebhookFilter::values(), ''))
+                            ->addable(false)
+                            ->editableKeys(false)
+                            ->deletable(false)
                             ->columnSpan(3),
                     ])
                     ->reorderable(false),
