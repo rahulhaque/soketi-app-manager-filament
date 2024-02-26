@@ -5,9 +5,10 @@ Simple frontend for [Soketi](https://soketi.app/) websocket server with a intuit
 **Soketi App Manager** provides a user-friendly interface for managing your Soketi websocket applications. You can effortlessly manage multiple websocket applications, streamlining your app management process. The whole setup process is made simpler so that anyone can easily get started with the Soketi websocket server. 🚀 It currently features -
 - Dashboard to show realtime server stats.
 - Create, serve, view, edit, delete and search multiple websocket applications.
-- Interactive UI for managing application webhooks.
+- Interactive UI for managing application webhooks and filters.
 - Create and manage multiple users with different roles.
 - Documentation for client and backend integration.
+- Light and dark theme.
 
 Support the development with a ⭐ to let others know it worked for you.
 
