@@ -12,7 +12,7 @@ Simple frontend for [Soketi](https://soketi.app/) websocket server with a intuit
 
 Support the development with a ⭐ to let others know it worked for you.
 
-If you like this project, consider supporting me on [ko-fi](https://ko-fi.com/W7W2I1JIV). 🙏
+I invest a lot of time and effort in open-source. If you like this project, consider supporting me on [ko-fi](https://ko-fi.com/W7W2I1JIV). 🙏
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W2I1JIV)
 
@@ -60,6 +60,57 @@ cp soketi.json.example soketi.json
 
 # Run soketi server
 soketi start --config=soketi.json
+```
+
+## Docker Installation
+
+Some considerations -
+
+- By default port 80 is exposed. Change the `APP_PORT` in `.env` after copying, before running `docker compose up -d`.
+- Soketi-app-manager container has `nginx` installed and configured to handle websocket requests as well. No need to expose port `6001` for websocket. Use `APP_PORT` instead.
+
+```bash
+# Clone or download the repo
+git clone https://github.com/rahulhaque/soketi-app-manager-filament.git
+
+# Go to the directory
+cd soketi-app-manager-filament
+
+# Copy .env.docker.example to .env
+cp .env.docker.example .env
+
+# Copy soketi.docker.json.example to soketi.docker.json
+cp soketi.docker.json.example soketi.docker.json
+
+# Build the image
+docker compose build
+
+# Run the application
+docker compose up -d
+
+# Drop to application shell
+docker compose exec -u soketi soketi-app-manager bash
+
+# Generate application key
+php artisan key:generate
+
+# Migrate database
+php artisan migrate
+
+# Create the admin user
+php artisan make:filament-user
+
+# Logout from shell
+exit
+
+# Visit application
+http://localhost:APP_PORT
+
+# Stop the application or
+docker compose stop
+
+# Stop and remove containers
+docker compose down
 ```
 
 ## Screenshots
