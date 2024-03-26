@@ -66,8 +66,8 @@ soketi start --config=soketi.json
 
 Some considerations -
 
-- By default port 80 is exposed. Change the `APP_PORT` in `.env` after copying, before running `docker compose up -d`.
-- Soketi-app-manager container has `nginx` installed and configured to handle websocket requests as well. No need to expose port `6001` for websocket. Use `APP_PORT` instead.
+- By default port `80` is exposed through nginx. Change the `APP_PORT` in `.env` after copying, before running `docker compose up -d`.
+- By default nginx is configured to handle websocket requests as well. No need to expose soketi port `6001` for websockets. Use the `APP_PORT` instead.
 
 ```bash
 # Clone or download the repo

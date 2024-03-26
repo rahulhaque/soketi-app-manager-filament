@@ -6,5 +6,5 @@ if [ ! -d vendor ]; then
     gosu soketi composer install
 fi
 
-echo "Starting nginx, php-fpm..."
+echo "Starting php-fpm..."
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf

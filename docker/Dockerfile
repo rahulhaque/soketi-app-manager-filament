@@ -13,10 +13,10 @@ ENV TZ=UTC
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Install nginx, add php repository
+# Install dependencies and add php repository
 RUN apt-get update \
     && apt-get install -y apt-utils ca-certificates curl gnupg gosu \
-    libcap2-bin nano nginx python2 sqlite3 supervisor unzip zip \
+    libcap2-bin nano python2 sqlite3 supervisor unzip zip \
     && mkdir -p ~/.gnupg \
     && chmod 600 ~/.gnupg \
     && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf \
@@ -36,9 +36,7 @@ RUN apt-get update \
     php$PHP_VERSION-igbinary php$PHP_VERSION-redis php$PHP_VERSION-pcov
 
 # Install composer
-RUN php -r "readfile('https://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
-    && mkdir /.composer \
-    && chmod -R ugo+rw /.composer
+COPY --from=composer:2.7.2 /usr/bin/composer /usr/bin/composer
 
 # Clean any temporary files
 RUN apt-get -y autoremove \
@@ -48,9 +46,8 @@ RUN apt-get -y autoremove \
 # Copy all required config files
 COPY start-server.sh /usr/local/bin/start-server.sh
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY pool.conf /etc/php/$PHP_VERSION/fpm/pool.d/z-www-custom.conf
+COPY php-fpm-pool.conf /etc/php/$PHP_VERSION/fpm/pool.d/z-www-custom.conf
 COPY php.ini /etc/php/$PHP_VERSION/fpm/conf.d/99-php.ini
-COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Set file capabilities
 RUN setcap "cap_net_bind_service=+ep" /usr/bin/php$PHP_VERSION
@@ -59,10 +56,6 @@ RUN setcap "cap_net_bind_service=+ep" /usr/bin/php$PHP_VERSION
 RUN groupadd --force -g $WWWGROUP soketi \
     && useradd -s /bin/bash --create-home --no-user-group -g $WWWGROUP -u $WWWUSER soketi \
     && chown -R $WWWUSER:$WWWGROUP /home/soketi \
-    && rm /etc/nginx/sites-enabled/default \
-    && sed -i 's/www-data;/soketi;/g' /etc/nginx/nginx.conf \
     && chmod +x /usr/local/bin/start-server.sh
-
-EXPOSE 80
 
 CMD ["/usr/local/bin/start-server.sh"]

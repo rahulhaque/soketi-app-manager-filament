@@ -10,13 +10,22 @@ services:
             dockerfile: Dockerfile
         image: soketi-app-manager
         container_name: soketi-app-manager
-        depends_on:
-            - mysql
-            - redis
         volumes:
             - '.:/var/www/html'
+        networks:
+            - soketi-network
+    
+    nginx:
+        image: 'nginx:stable-alpine3.17-slim'
+        container_name: soketi-app-manager-nginx
+        depends_on:
+            - soketi-app-manager
+            - soketi
+        volumes:
+          - './docker/nginx.conf:/etc/nginx/conf.d/default.conf'
+          - '.:/var/www/html'
         ports:
-            - '${APP_PORT:-80}:80'
+          - '${APP_PORT:-80}:80'
         networks:
             - soketi-network
 
