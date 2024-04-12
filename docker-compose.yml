@@ -6,7 +6,7 @@ networks:
 services:
     soketi-app-manager:
         build:
-            context: ./docker
+            context: ./
             dockerfile: Dockerfile
         image: soketi-app-manager
         container_name: soketi-app-manager
@@ -14,7 +14,7 @@ services:
             - '.:/var/www/html'
         networks:
             - soketi-network
-    
+
     nginx:
         image: 'nginx:stable-alpine3.17-slim'
         container_name: soketi-app-manager-nginx

@@ -43,11 +43,14 @@ RUN apt-get -y autoremove \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# Copy all files
+COPY . .
+
 # Copy all required config files
-COPY start-server.sh /usr/local/bin/start-server.sh
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY php-fpm-pool.conf /etc/php/$PHP_VERSION/fpm/pool.d/z-www-custom.conf
-COPY php.ini /etc/php/$PHP_VERSION/fpm/conf.d/99-php.ini
+COPY docker/start-server.sh /usr/local/bin/start-server.sh
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/php-fpm-pool.conf /etc/php/$PHP_VERSION/fpm/pool.d/z-www-custom.conf
+COPY docker/php.ini /etc/php/$PHP_VERSION/fpm/conf.d/99-php.ini
 
 # Set file capabilities
 RUN setcap "cap_net_bind_service=+ep" /usr/bin/php$PHP_VERSION
@@ -57,5 +60,7 @@ RUN groupadd --force -g $WWWGROUP soketi \
     && useradd -s /bin/bash --create-home --no-user-group -g $WWWGROUP -u $WWWUSER soketi \
     && chown -R $WWWUSER:$WWWGROUP /home/soketi \
     && chmod +x /usr/local/bin/start-server.sh
+
+RUN ./docker/init-server.sh
 
 CMD ["/usr/local/bin/start-server.sh"]

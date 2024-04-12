@@ -1,4 +1,5 @@
 .github
-docker
+docker/data
+docker/config
 screenshots
 vendor
