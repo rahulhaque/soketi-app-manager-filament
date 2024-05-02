@@ -19,27 +19,30 @@
             {{ $stat }}
         @endforeach
 
-        @if (count($this->connectedApps) > 0)
-            <x-filament-widgets::widget>
-                <x-filament::section icon="heroicon-m-wifi" icon-color="success">
-                    <x-slot name="heading">
-                        Connected Apps
-                    </x-slot>
-
+        <x-filament-widgets::widget>
+            <x-filament::section icon="heroicon-m-wifi" icon-color="success">
+                <x-slot name="heading">
+                    Connected Apps
+                </x-slot>
+                @if (count($this->connectedApps) > 0)
                     <div class="divide-y divide-gray-200 dark:divide-white/10" style="margin: -1.5rem">
                         @foreach ($this->connectedApps as $app)
                             <div class="flex justify-between p-6 dark:border-white/10">
                                 <div>
-                                    App ID: {{ $app['json']['app_id'] }}
+                                    <span class="font-medium text-gray-500 dark:text-gray-400">App ID:</span> {{ $app['json']['app_id'] }}
                                 </div>
                                 <div>
-                                    Connection: {{ $app['value'] }}
+                                    <span class="font-medium text-gray-500 dark:text-gray-400">Connection:</span> {{ $app['value'] }}
                                 </div>
                             </div>
                         @endforeach
                     </div>
-                </x-filament::section>
-            </x-filament-widgets::widget>
-        @endif
+                @else
+                    <div class="flex justify-center p-6 dark:border-white/10 text-sm text-danger-600 dark:text-danger-400" style="margin: -1.5rem">
+                        Error getting stats. Is Soketi running?
+                    </div>
+                @endif
+            </x-filament::section>
+        </x-filament-widgets::widget>
     </div>
 </x-filament-widgets::widget>
