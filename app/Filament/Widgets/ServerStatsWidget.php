@@ -7,13 +7,22 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Number;
 
-class ServerStats extends BaseWidget
+class ServerStatsWidget extends BaseWidget
 {
     protected static ?string $pollingInterval = '5s';
 
+    protected static string $view = 'filament.widgets.server-stats-widget';
+
+    protected array $connectedApps = [];
+
+    protected function getColumns(): int
+    {
+        return 3;
+    }
+
     public static function canView(): bool
     {
-        return config('metrics.enabled');
+        return config('metrics.enabled') && auth()->user()->is_admin;
     }
 
     protected function getStats(): array
@@ -23,8 +32,8 @@ class ServerStats extends BaseWidget
             $metrics = Http::timeout(5)->get(config('metrics.host').'/metrics');
 
             $soketiConnected = parse_prometheus('soketi_connected', $metrics->body());
-            $soketiMessageSent = parse_prometheus('soketi_ws_messages_sent_total', $metrics->body());
             $soketiProcessRuntime = parse_prometheus('soketi_process_start_time_seconds', $metrics->body());
+            $this->connectedApps = $soketiConnected->toArray();
 
             return [
                 Stat::make('Server Started', now()->subSeconds(time() - $soketiProcessRuntime->pluck('value')[0])->diffForHumans()),
@@ -44,6 +53,5 @@ class ServerStats extends BaseWidget
                     ->color('danger'),
             ];
         }
-
     }
 }

@@ -3,12 +3,15 @@
 Simple frontend for [Soketi](https://soketi.app/) websocket server with a intuitive user interface. Made with [FilamentPHP](https://filamentphp.com/) and 💕
 
 **Soketi App Manager** provides a user-friendly interface for managing your Soketi websocket applications. You can effortlessly manage multiple websocket applications, streamlining your app management process. The whole setup process is made simpler so that anyone can easily get started with the Soketi websocket server. 🚀 It currently features -
-- Dashboard to show realtime server stats.
+- Dashboard to show realtime server stats and app connections.
 - Create, serve, view, edit, delete and search multiple websocket applications.
-- Interactive UI for managing application webhooks and filters.
-- Create and manage multiple users with different roles.
+- Interactive UI for managing application webhooks.
+- Interactive UI for managing webhook filters.
+- Create and manage multiple users with different roles (Admin/Non-admin).
 - Documentation for client and backend integration.
 - Light and dark theme.
+
+> Soketi app caching is enabled by default for an hour. Any modification to the app will not be reflected until the cache timeout expires. Adjust the time in any of the 'soketi.json' files you're using by editing the value of `appManager.cache.ttl`.
 
 Support the development with a ⭐ to let others know it worked for you.
 
