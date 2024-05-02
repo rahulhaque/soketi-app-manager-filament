@@ -24,7 +24,7 @@
                 <x-slot name="heading">
                     Connected Apps
                 </x-slot>
-                @if (count($this->connectedApps) > 0)
+                @if (count($this->connectedApps) > 0 && $this->totalConnection > 0)
                     <div class="divide-y divide-gray-200 dark:divide-white/10" style="margin: -1.5rem">
                         @foreach ($this->connectedApps as $app)
                             <div class="flex justify-between p-6 dark:border-white/10">
@@ -38,9 +38,15 @@
                         @endforeach
                     </div>
                 @else
-                    <div class="flex justify-center p-6 dark:border-white/10 text-sm text-danger-600 dark:text-danger-400" style="margin: -1.5rem">
-                        Error getting stats. Is Soketi running?
-                    </div>
+                    @if ($this->isSoketiRunning)
+                        <div class="flex justify-center p-6 dark:border-white/10 text-sm text-gray-600 dark:text-gray-400" style="margin: -1.5rem">
+                            No apps connected yet.
+                        </div>
+                    @else
+                        <div class="flex justify-center p-6 dark:border-white/10 text-sm text-danger-600 dark:text-danger-400" style="margin: -1.5rem">
+                            Error getting stats. Is Soketi running?
+                        </div>
+                    @endif
                 @endif
             </x-filament::section>
         </x-filament-widgets::widget>

@@ -13,6 +13,10 @@ class ServerStatsWidget extends BaseWidget
 
     protected static string $view = 'filament.widgets.server-stats-widget';
 
+    protected bool $isSoketiRunning = false;
+
+    protected int $totalConnection = 0;
+
     protected array $connectedApps = [];
 
     protected function getColumns(): int
@@ -33,12 +37,15 @@ class ServerStatsWidget extends BaseWidget
 
             $soketiConnected = parse_prometheus('soketi_connected', $metrics->body());
             $soketiProcessRuntime = parse_prometheus('soketi_process_start_time_seconds', $metrics->body());
+            
+            $this->isSoketiRunning = true;
             $this->connectedApps = $soketiConnected->toArray();
+            $this->totalConnection = $soketiConnected->pluck('value')->sum();
 
             return [
                 Stat::make('Server Started', now()->subSeconds(time() - $soketiProcessRuntime->pluck('value')[0])->diffForHumans()),
                 Stat::make('Total Memory Usage', round($memoryUsage->json('memory.percent')).'% of '.Number::fileSize($memoryUsage->json('memory.total'), 1)),
-                Stat::make('Total Open Connection', $soketiConnected->pluck('value')->sum()),
+                Stat::make('Total Open Connection', $this->totalConnection),
             ];
         } catch (\Exception $e) {
             return [
