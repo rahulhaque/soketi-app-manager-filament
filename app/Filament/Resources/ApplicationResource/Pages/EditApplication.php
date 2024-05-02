@@ -18,6 +18,7 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\HtmlString;
 use Illuminate\Validation\ValidationException;
 
@@ -52,6 +53,11 @@ class EditApplication extends EditRecord
         $data['updated_by'] = auth()->id();
 
         return $data;
+    }
+
+    protected function afterSave(): void
+    {
+        Redis::connection('soketi')->del('soketi_app:'.$this->record->key);
     }
 
     public function form(Form $form): Form

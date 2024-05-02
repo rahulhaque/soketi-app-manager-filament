@@ -11,6 +11,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Redis;
 
 class ApplicationResource extends Resource
 {
@@ -55,7 +56,10 @@ class ApplicationResource extends Resource
                 ToggleColumn::make('enabled')
                     ->label('Active Status')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->afterStateUpdated(function ($record, $state) {
+                        Redis::connection('soketi')->del('soketi_app:'.$record->key);
+                    }),
                 TextColumn::make('creator.name')
                     ->searchable()
                     ->sortable(),

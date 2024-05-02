@@ -11,8 +11,6 @@ Simple frontend for [Soketi](https://soketi.app/) websocket server with a intuit
 - Documentation for client and backend integration.
 - Light and dark theme.
 
-> Soketi app caching is enabled by default for an hour. Any modification to the app will not be reflected until the cache timeout expires. Adjust the time in any of the 'soketi.json' files you're using by editing the value of `appManager.cache.ttl`.
-
 Support the development with a ⭐ to let others know it worked for you.
 
 I invest a lot of time and effort in open-source. If you like this project, consider supporting me on [ko-fi](https://ko-fi.com/W7W2I1JIV). 🙏
