@@ -145,16 +145,16 @@ return [
             'port' => env('REDIS_PORT', '6379'),
             'database' => env('REDIS_CACHE_DB', '1'),
         ],
-        
+
         'soketi' => [
             'url' => env('REDIS_URL'),
-            'host' => env('REDIS_HOST', '127.0.0.1'),
-            'username' => env('REDIS_USERNAME'),
-            'password' => env('REDIS_PASSWORD'),
-            'port' => env('REDIS_PORT', '6379'),
-            'database' => env('REDIS_CACHE_DB', '0'),
+            'host' => env('SOKETI_DB_REDIS_HOST', '127.0.0.1'),
+            'username' => env('SOKETI_DB_REDIS_USERNAME'),
+            'password' => env('SOKETI_DB_REDIS_PASSWORD'),
+            'port' => env('SOKETI_DB_REDIS_PORT', '6379'),
+            'database' => env('SOKETI_DB_REDIS_DB', '0'),
             'options' => [
-                'prefix' => '',
+                'prefix' => env('SOKETI_DB_REDIS_KEY_PREFIX', 'soketi_'),
             ],
         ],
 

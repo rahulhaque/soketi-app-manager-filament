@@ -37,7 +37,7 @@ class ServerStatsWidget extends BaseWidget
 
             $soketiConnected = parse_prometheus('soketi_connected', $metrics->body());
             $soketiProcessRuntime = parse_prometheus('soketi_process_start_time_seconds', $metrics->body());
-            
+
             $this->isSoketiRunning = true;
             $this->connectedApps = $soketiConnected->toArray();
             $this->totalConnection = $soketiConnected->pluck('value')->sum();

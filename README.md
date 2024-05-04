@@ -4,8 +4,10 @@ Simple frontend for [Soketi](https://soketi.app/) websocket server with a intuit
 
 **Soketi App Manager** provides a user-friendly interface for managing your Soketi websocket applications. You can effortlessly manage multiple websocket applications, streamlining your app management process. The whole setup process is made simpler so that anyone can easily get started with the Soketi websocket server. 🚀 It currently features -
 - Dashboard to show realtime server stats and app connections.
-- Create, serve, view, edit, delete and search multiple websocket applications.
-- Interactive UI for managing application webhooks.
+- Dashboard to show realtime Soketi application connections.
+- Create and manage (serve, view, edit, delete and filter) multiple Soketi applications.
+- Interactive UI for managing Soketi application webhooks.
+- Interactive UI for managing webhook headers.
 - Interactive UI for managing webhook filters.
 - Create and manage multiple users with different roles (Admin/Non-admin).
 - Documentation for client and backend integration.
@@ -13,7 +15,7 @@ Simple frontend for [Soketi](https://soketi.app/) websocket server with a intuit
 
 Support the development with a ⭐ to let others know it worked for you.
 
-I invest a lot of time and effort in open-source. If you like this project, consider supporting me on [ko-fi](https://ko-fi.com/W7W2I1JIV). 🙏
+I invest a lot of time and effort in open-source. If you like this project, please consider supporting me on [Ko-fi](https://ko-fi.com/W7W2I1JIV). 🙏
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W2I1JIV)
 
@@ -36,6 +38,7 @@ git clone https://github.com/rahulhaque/soketi-app-manager-filament.git
 cd soketi-app-manager-filament
 
 # Copy .env.example to .env
+# Change needed variables
 cp .env.example .env
 
 # Install dependencies
@@ -45,22 +48,16 @@ composer install
 php artisan key:generate
 
 # Migrate database
-php artisan migrate
-
-# Create the admin user
-php artisan make:filament-user
+php artisan migrate --seed
 
 # Run the application
 php artisan serve
 
-# Install soketi websocket server
+# Install Soketi websocket server
 npm install -g @soketi/soketi
 
-# Copy soketi.json.example to soketi.json
-cp soketi.json.example soketi.json
-
-# Run soketi server
-soketi start --config=soketi.json
+# Run Soketi server
+soketi start
 ```
 
 ## Docker Installation
@@ -68,7 +65,7 @@ soketi start --config=soketi.json
 Some considerations -
 
 - By default port `80` is exposed through nginx. Change the `APP_PORT` in `.env` after copying, before running `docker compose up -d`.
-- By default nginx is configured to handle websocket requests as well. No need to expose soketi port `6001` for websockets. Use the `APP_PORT` instead.
+- By default nginx is configured to handle websocket requests as well. No need to expose Soketi port `6001` for websockets. Use the `APP_PORT` instead.
 
 ```bash
 # Clone or download the repo
@@ -78,10 +75,8 @@ git clone https://github.com/rahulhaque/soketi-app-manager-filament.git
 cd soketi-app-manager-filament
 
 # Copy .env.docker.example to .env
+# Change needed variables
 cp .env.docker.example .env
-
-# Copy soketi.docker.json.example to soketi.docker.json
-cp soketi.docker.json.example soketi.docker.json
 
 # Build the image
 docker compose build
@@ -96,10 +91,7 @@ docker compose exec -u soketi soketi-app-manager bash
 php artisan key:generate
 
 # Migrate database
-php artisan migrate
-
-# Create the admin user
-php artisan make:filament-user
+php artisan migrate --seed
 
 # Logout from shell
 exit
@@ -112,6 +104,13 @@ docker compose stop
 
 # Stop and remove containers
 docker compose down
+```
+
+## Credentials
+
+```bash
+Email: admin@email.com
+Password: password
 ```
 
 ## Screenshots

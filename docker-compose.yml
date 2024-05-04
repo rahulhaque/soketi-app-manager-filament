@@ -47,7 +47,7 @@ services:
     redis:
         image: 'redis:alpine3.19'
         container_name: soketi-app-manager-redis
-        command: redis-server --save 60 1 --loglevel warning
+        command: redis-server --save 60 1 --loglevel warning --requirepass password
         volumes:
             - './docker/data/redis:/data'
         networks:
@@ -59,8 +59,7 @@ services:
         depends_on:
             - mysql
             - redis
-        command: node /app/bin/server.js start --config=/soketi.docker.json
         volumes:
-            - './soketi.docker.json:/soketi.docker.json'
+            - './.env:/app/.env'
         networks:
             - soketi-network

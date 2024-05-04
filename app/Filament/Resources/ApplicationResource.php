@@ -11,7 +11,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Redis;
 
 class ApplicationResource extends Resource
 {
@@ -58,7 +57,7 @@ class ApplicationResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->afterStateUpdated(function ($record, $state) {
-                        Redis::connection('soketi')->del('soketi_app:'.$record->key);
+                        $record->clearCache();
                     }),
                 TextColumn::make('creator.name')
                     ->searchable()

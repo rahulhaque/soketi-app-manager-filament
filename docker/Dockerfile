@@ -58,4 +58,7 @@ RUN groupadd --force -g $WWWGROUP soketi \
     && chown -R $WWWUSER:$WWWGROUP /home/soketi \
     && chmod +x /usr/local/bin/start-server.sh
 
+# Expose php fpm port
+EXPOSE 9000
+
 CMD ["/usr/local/bin/start-server.sh"]
