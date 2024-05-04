@@ -87,6 +87,9 @@ docker compose up -d
 # Drop to application shell
 docker compose exec -u soketi soketi-app-manager bash
 
+# Install dependencies
+composer install
+
 # Generate application key
 php artisan key:generate
 
