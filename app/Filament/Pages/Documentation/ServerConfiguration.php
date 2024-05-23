@@ -19,4 +19,11 @@ class ServerConfiguration extends Page
             '/server-configuration' => 'Server Configuration',
         ];
     }
+
+    protected function getViewData(): array
+    {
+        return [
+            'host' => parse_url(config('app.url'), PHP_URL_HOST),
+        ];
+    }
 }

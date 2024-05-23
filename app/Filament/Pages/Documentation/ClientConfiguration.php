@@ -19,4 +19,11 @@ class ClientConfiguration extends Page
             '/client-configuration' => 'Client Configuration',
         ];
     }
+
+    protected function getViewData(): array
+    {
+        return [
+            'host' => parse_url(config('app.url'), PHP_URL_HOST),
+        ];
+    }
 }
