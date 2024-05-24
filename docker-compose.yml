@@ -10,6 +10,9 @@ services:
             dockerfile: Dockerfile
         image: soketi-app-manager
         container_name: soketi-app-manager
+        depends_on:
+            mysql:
+                condition: service_healthy # Important for auto database migration
         volumes:
             - '.:/var/www/html'
         networks:
@@ -35,19 +38,24 @@ services:
         environment:
             MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
             MYSQL_ROOT_HOST: "%"
-            MYSQL_DATABASE: 'soketi_app_manager'
+            MYSQL_DATABASE: '${DB_DATABASE}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-            MYSQL_USER: 'soketi'
-            MYSQL_PASSWORD: 'password'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
         volumes:
             - './docker/data/mysql:/var/lib/mysql'
         networks:
             - soketi-network
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-u", "${DB_USERNAME}", "-p${DB_PASSWORD}"]
+            retries: 3
+            timeout: 5s
+            interval: 5s
 
     redis:
         image: 'redis:alpine3.19'
         container_name: soketi-app-manager-redis
-        command: redis-server --save 60 1 --loglevel warning --requirepass password
+        command: redis-server --save 60 1 --loglevel warning --requirepass "${REDIS_PASSWORD}"
         volumes:
             - './docker/data/redis:/data'
         networks:

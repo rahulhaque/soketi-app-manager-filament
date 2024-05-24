@@ -28,7 +28,7 @@ I invest a lot of time and effort in open-source. If you like this project, plea
 - NodeJS^14
 - Soketi running with MySQL|PostgreSQL
 
-## Installation
+## Local Installation
 
 ```bash
 # Clone or download the repo
@@ -64,8 +64,8 @@ soketi start
 
 Some considerations -
 
-- By default port `80` is exposed through nginx. Change the `APP_PORT` in `.env` after copying, before running `docker compose up -d`.
-- By default nginx is configured to handle websocket requests as well. No need to expose Soketi port `6001` for websockets. Use the `APP_PORT` instead.
+- Port `80` is exposed through nginx by default. Change the `APP_PORT` in `.env` before running `docker compose up -d` if there's conflict.
+- Nginx is configured to handle websocket requests as well. No need to expose Soketi port `6001` for websockets. Use the `APP_PORT` instead.
 
 ```bash
 # Clone or download the repo
@@ -75,26 +75,30 @@ git clone https://github.com/rahulhaque/soketi-app-manager-filament.git
 cd soketi-app-manager-filament
 
 # Copy .env.docker.example to .env
-# Change needed variables
 cp .env.docker.example .env
+
+# Change the necessary variables
+nano .env
 
 # Build the image
 docker compose build
 
 # Run the application
+# Give it some time to -
+# > Install composer dependencies
+# > Generate application key
+# > Run database migration
+# Press `ctrl-c` when done
+docker compose up
+
+# Now run it in background
 docker compose up -d
 
 # Drop to application shell
 docker compose exec -u soketi soketi-app-manager bash
 
-# Install dependencies
-composer install
-
-# Generate application key
-php artisan key:generate
-
-# Migrate database
-php artisan migrate --seed
+# Seed database
+php artisan db:seed
 
 # Logout from shell
 exit
@@ -105,7 +109,7 @@ http://localhost:APP_PORT
 # Stop the application or
 docker compose stop
 
-# Stop and remove containers
+# Stop and remove the containers
 docker compose down
 ```
 
