@@ -18,7 +18,7 @@
 
                 \$pusher = new Pusher('app-key', 'app-secret', 'app-id', [
                     'host' => '$host',
-                    'port' => 6001,
+                    'port' => $port,
                     'scheme' => 'http',
                     'encrypted' => true,
                     'useTLS' => false,
@@ -61,7 +61,7 @@
                         'app_id' => env('PUSHER_APP_ID', 'app-id'),
                         'options' => [
                             'host' => env('PUSHER_HOST', '$host'),
-                            'port' => env('PUSHER_PORT', 6001),
+                            'port' => env('PUSHER_PORT', $port),
                             'scheme' => env('PUSHER_SCHEME', 'http'),
                             'encrypted' => true,
                             'useTLS' => env('PUSHER_SCHEME') === 'https',

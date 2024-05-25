@@ -24,6 +24,7 @@ class ServerConfiguration extends Page
     {
         return [
             'host' => parse_url(config('app.url'), PHP_URL_HOST),
+            'port' => env('APP_PORT', 6001),
         ];
     }
 }

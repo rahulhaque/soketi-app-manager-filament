@@ -18,7 +18,7 @@
 
                 let client = new PusherJS('app-key', {
                     wsHost: '$host',
-                    wsPort: 6001,
+                    wsPort: $port,
                     forceTLS: false,
                     encrypted: true,
                     disableStats: true,
@@ -41,7 +41,7 @@
 
                 let client = new PusherJS('app-key', {
                     wssHost: '$host',
-                    wssPort: 6001,
+                    wssPort: $port,
                     forceTLS: true,
                     enabledTransports: ['wss'],
                 });
@@ -110,7 +110,7 @@
                 PUSHER_APP_ID=app-id
                 PUSHER_APP_SECRET=app-secret
                 PUSHER_HOST=$host
-                PUSHER_PORT=6001
+                PUSHER_PORT=$port
 
                 MIX_PUSHER_APP_KEY="\${PUSHER_APP_KEY}"
                 MIX_PUSHER_HOST="\${PUSHER_HOST}"
