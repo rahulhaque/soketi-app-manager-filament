@@ -77,17 +77,21 @@ class EditApplication extends EditRecord
                                     ->unique(ignoreRecord: true)
                                     ->columnSpan(3),
                                 Toggle::make('enabled')
-                                    ->label('Is enabled?')
+                                    ->label('Enable app')
                                     ->required()
                                     ->inline(false)
                                     ->columnSpan(3),
                                 Toggle::make('enable_client_messages')
-                                    ->label('Is client messages enabled?')
+                                    ->label('Enable client events')
+                                    ->hintIcon('heroicon-m-question-mark-circle', tooltip: 'Let clients communicate directly with each other.')
+                                    ->hintColor('primary')
                                     ->required()
                                     ->inline(false)
                                     ->columnSpan(3),
                                 Toggle::make('enable_user_authentication')
-                                    ->label('Is user authentication enabled?')
+                                    ->label('Enable authorized connections')
+                                    ->hintIcon('heroicon-m-question-mark-circle', tooltip: 'Closes connections which fail to subscribe to a private/presence channel within a timeout.')
+                                    ->hintColor('primary')
                                     ->required()
                                     ->inline(false)
                                     ->columnSpan(3),
