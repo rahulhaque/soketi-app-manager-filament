@@ -8,7 +8,7 @@ class ServerConfiguration extends Page
 {
     protected static ?string $navigationGroup = 'Documentation';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 5;
 
     protected static string $view = 'filament.pages.documentation.server-configuration';
 
