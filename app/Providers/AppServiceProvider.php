@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::unguard();
 
-        Blueprint::mixin(new BluePrintMixins());
+        Blueprint::mixin(new BluePrintMixins);
 
         Blade::directive('markdown', function () {
             return "<?php echo Illuminate\Mail\Markdown::parse(<<<HEREDOC";
