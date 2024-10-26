@@ -80,7 +80,7 @@
         </details>
     </div>
     <script type="text/javascript">
-        document.addEventListener('livewire:initialized', () => {
+        document.addEventListener('livewire:navigated', () => {
             hljs.highlightAll();
         })
     </script>
