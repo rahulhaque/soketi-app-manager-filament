@@ -26,7 +26,7 @@ class ServerStatsWidget extends BaseWidget
 
     public static function canView(): bool
     {
-        return config('metrics.enabled') && auth()->user()->is_admin;
+        return config('metrics.enabled');
     }
 
     protected function getStats(): array
@@ -39,14 +39,18 @@ class ServerStatsWidget extends BaseWidget
             $soketiProcessRuntime = parse_prometheus('soketi_process_start_time_seconds', $metrics->body());
 
             $this->isSoketiRunning = true;
-            $this->connectedApps = $soketiConnected->toArray();
+            $this->connectedApps = auth()->user()->is_admin
+                ? $soketiConnected->toArray()
+                : $soketiConnected->whereIn('json.app_id', auth()->user()->apps->pluck('id'))->toArray();
             $this->totalConnection = $soketiConnected->pluck('value')->sum();
 
-            return [
+            $stats = [
                 Stat::make('Server Started', now()->subSeconds(time() - $soketiProcessRuntime->pluck('value')[0])->diffForHumans()),
                 Stat::make('Total Memory Usage', round($memoryUsage->json('memory.percent')).'% of '.Number::fileSize($memoryUsage->json('memory.total'), 1)),
                 Stat::make('Total Open Connection', $this->totalConnection),
             ];
+
+            return auth()->user()->is_admin ? $stats : [];
         } catch (\Exception $e) {
             return [
                 Stat::make('Server Runtime', 'N/A')

@@ -58,4 +58,9 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     {
         return true;
     }
+
+    public function apps()
+    {
+        return $this->hasMany(Application::class, 'created_by');
+    }
 }
