@@ -6,6 +6,7 @@ use App\Enums\WebhookEvent;
 use App\Enums\WebhookFilter;
 use App\Filament\Resources\ApplicationResource;
 use Filament\Actions\DeleteAction;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Repeater;
@@ -205,7 +206,7 @@ class EditApplication extends EditRecord
                     ])
                     ->persistTabInQueryString(),
                 Repeater::make('webhooks')
-                    ->addActionLabel('Add webhook')
+                    ->addAction(fn (Action $action) => $action->label('Add webhook')->icon('heroicon-m-signal')->color('success'))
                     ->itemLabel('Webhook')
                     ->hint(
                         new HtmlString('<a href="https://docs.soketi.app/advanced-usage/app-webhooks" title="Consider reading Pusher documentation" target="_blank">Documentation</a>')
