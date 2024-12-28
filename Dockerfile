@@ -1,11 +1,11 @@
-FROM serversideup/php:8.2-fpm-nginx
+FROM serversideup/php:8.1-fpm-nginx
 
 ENV PHP_OPCACHE_ENABLE=1
 
 USER root
 
 # Install Node.js
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get update \
     && apt-get install -y nodejs \
     && apt-get clean \
