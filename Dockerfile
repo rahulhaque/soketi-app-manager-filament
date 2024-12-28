@@ -18,8 +18,7 @@ COPY --chown=www-data:www-data . /var/www/html
 USER www-data
 
 # Install dependencies and build
-RUN npm ci \
-    && npm run build \
+RUN npm run build \
     && rm -rf /var/www/html/.npm
 
 # Install PHP dependencies
