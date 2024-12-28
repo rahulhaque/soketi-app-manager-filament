@@ -23,7 +23,7 @@ RUN npm install \
     && rm -rf /var/www/html/.npm
 
 # Install PHP dependencies
-RUN composer install --no-interaction --optimize-autoloader --no-dev
+RUN composer install --no-interaction --optimize-autoloader
 
 # Remove composer cache
 RUN rm -rf /var/www/html/.composer/cache
