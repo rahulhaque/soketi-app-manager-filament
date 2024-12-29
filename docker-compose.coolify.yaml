@@ -1,0 +1,29 @@
+# documentation: https://github.com/rahulhaque/soketi-app-manager-filament
+# slogan: Manage soketi websocket server and apps with ease.
+# tags: soketi,app-manager,tools
+# logo: svgs/your-service.svg
+# port: 8080
+
+services:
+    soketi-app-manager-filament:
+        build:
+            dockerfile: Dockerfile
+        image: soketi-app-manager-filament
+        environment:
+            - APP_URL=$SERVICE_FQDN_SOKETIAPPMANAGERFILAMENT
+            - APP_KEY=
+            - APP_ENV=production
+            - APP_DEBUG=true
+            - DB_CONNECTION=mysql
+            - DB_HOST=
+            - DB_PORT=3306
+            - DB_DATABASE=soketi_app_manager
+            - DB_USERNAME=root
+            - DB_PASSWORD=
+            - REDIS_HOST=
+            - REDIS_PASSWORD=null
+            - REDIS_PORT=6379
+            - PUSHER_HOST=127.0.0.1 # Required for playground
+            - PUSHER_PORT=6001 # Required for playground
+            - PUSHER_SCHEME=http # Required for playground
+            - PUSHER_APP_CLUSTER= # Required for playground
