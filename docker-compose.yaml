@@ -27,3 +27,4 @@ services:
             - PUSHER_PORT=6001 # Required for playground
             - PUSHER_SCHEME=http # Required for playground
             - PUSHER_APP_CLUSTER= # Required for playground
+            - METRICS_HOST=http://localhost:9601
