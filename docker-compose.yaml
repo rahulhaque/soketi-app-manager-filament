@@ -10,7 +10,7 @@ services:
             dockerfile: Dockerfile
         image: soketi-app-manager-filament
         environment:
-            - APP_URL=$SERVICE_FQDN_SOKETIAPPMANAGERFILAMENT
+            - APP_URL=${COOLIFY_URL}
             - APP_KEY=
             - APP_ENV=production
             - APP_DEBUG=true
