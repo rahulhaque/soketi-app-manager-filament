@@ -1,3 +1,6 @@
+# This dockerfile creates an standalone
+# image for the base application only.
+
 FROM serversideup/php:8.1-fpm-nginx
 
 ENV PHP_OPCACHE_ENABLE=1

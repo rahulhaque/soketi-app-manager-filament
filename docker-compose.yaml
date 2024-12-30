@@ -1,7 +1,10 @@
+# This compose file is for Coolify only. If you're looking for a complete
+# docker setup, see the docker-compose.yml file with database and soketi.
+# 
 # documentation: https://github.com/rahulhaque/soketi-app-manager-filament
 # slogan: Manage soketi websocket server and apps with ease.
 # tags: soketi,app-manager,tools
-# logo: svgs/your-service.svg
+# logo: svgs/soketi-app-manager-filament.svg
 # port: 8080
 
 services:

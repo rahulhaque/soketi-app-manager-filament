@@ -113,6 +113,28 @@ docker compose stop
 docker compose down
 ```
 
+## Coolify Installation
+
+Follow the below instructions to deploy this with [Coolify](https://coolify.io/) -
+
+- Create a public repository based application from Coolify dashboard with this url https://github.com/rahulhaque/soketi-app-manager-filament and click `Check repository`.
+- Next select `Docker Compose` from `Build Pack` dropdown and click `Continue`.
+- Before you set up the environment variables, make sure to create and deploy your preferred **database**, **redis** and **soketi** services. Come back to **soketi-app-manager-filament** service.
+- Then copy/paste the related environement variables in Coolify UI except `APP_KEY`.
+- `Save` and hit `Deploy`.
+- After that go to terminal and run the followin -
+```bash
+# Keep the key for APP_KEY
+php artisan key:generate --show
+
+# Migrate the database
+php artisan migrate
+
+# Create an admin user
+php artisan make:filament-user --name <your_name> --email <your_email> --password <your_password>
+```
+- Set the `APP_KEY` environment variable and `Restart` the service. You should be able to login with the user credentials.
+
 ## Credentials
 
 ```bash
