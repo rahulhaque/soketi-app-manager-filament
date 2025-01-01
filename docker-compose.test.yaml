@@ -14,9 +14,10 @@ services:
             dockerfile: Dockerfile.coolify
         image: soketi-app-manager
         depends_on:
-            mysql:
-                condition: service_healthy # Important for auto database migration
+            - mysql
+            - redis
         environment:
+            - PORT=8080
             - APP_URL=$SERVICE_FQDN_NGINX
             - APP_DEBUG=${APP_DEBUG:-false}
             - APP_KEY=$APP_KEY
@@ -24,16 +25,15 @@ services:
             - DB_HOST=mysql
             - DB_PORT=3306
             - DB_DATABASE=${DB_DATABASE:-soketi_app_manager}
-            - DB_USERNAME=$SERVICE_USER_MYSQL
-            - DB_PASSWORD=$SERVICE_PASSWORD_MYSQL
+            - DB_USERNAME=${SERVICE_USER_MYSQL}
+            - DB_PASSWORD=${SERVICE_PASSWORD_MYSQL}
             - REDIS_HOST=redis
-            - REDIS_PASSWORD=$SERVICE_PASSWORD_REDIS
-            - REDIS_PORT=6379
+            - REDIS_PASSWORD=${SERVICE_PASSWORD_REDIS}
             - PUSHER_HOST=soketi
             - PUSHER_PORT=6001
             - PUSHER_SCHEME=${PUSHER_SCHEME:-http}
             - PUSHER_APP_CLUSTER=$PUSHER_APP_CLUSTER
-            - METRICS_HOST=soketi:9601
+            - METRICS_HOST=${METRICS_HOST:-soketi:9601}
         healthcheck:
             test: ["CMD", "php-fpm-healthcheck"]
             start_period: 10s
@@ -42,10 +42,9 @@ services:
     mysql:
         image: 'mysql/mysql-server:8.0'
         environment:
-            - MYSQL_ROOT_HOST="%"
             - MYSQL_DATABASE=${DB_DATABASE:-soketi_app_manager}
-            - MYSQL_USER=$SERVICE_USER_MYSQL
-            - MYSQL_PASSWORD=$SERVICE_PASSWORD_MYSQL
+            - MYSQL_USER=${SERVICE_USER_MYSQL}
+            - MYSQL_PASSWORD=${SERVICE_PASSWORD_MYSQL}
         volumes:
             - './docker/data/mysql:/var/lib/mysql'
         healthcheck:
@@ -71,18 +70,15 @@ services:
             - SOKETI_RATE_LIMITER_DRIVER=redis
             - SOKETI_DB_MYSQL_HOST=mysql
             - SOKETI_DB_MYSQL_PORT=3306
-            - SOKETI_DB_MYSQL_USERNAME=$SERVICE_USER_MYSQL
-            - SOKETI_DB_MYSQL_PASSWORD=$SERVICE_PASSWORD_MYSQL
+            - SOKETI_DB_MYSQL_USERNAME=${SERVICE_USER_MYSQL}
+            - SOKETI_DB_MYSQL_PASSWORD=${SERVICE_PASSWORD_MYSQL}
             - SOKETI_DB_MYSQL_DATABASE=${DB_DATABASE:-soketi_app_manager}
             - SOKETI_APP_MANAGER_DRIVER=mysql
             - SOKETI_APP_MANAGER_MYSQL_TABLE=applications
             - SOKETI_APP_MANAGER_MYSQL_USE_V2=${SOKETI_APP_MANAGER_MYSQL_USE_V2:-true} # Change this if you're having issue connecting to MySQL
             - SOKETI_APP_MANAGER_CACHE_TTL=3600
             - SOKETI_DB_REDIS_HOST=redis
-            - SOKETI_DB_REDIS_PORT=6379
-            - SOKETI_DB_REDIS_PASSWORD=$SERVICE_PASSWORD_REDIS
-            - SOKETI_DB_REDIS_DB=0
-            - SOKETI_DB_REDIS_KEY_PREFIX=soketi_
+            - SOKETI_DB_REDIS_PASSWORD=${SERVICE_PASSWORD_REDIS}
         depends_on:
             - mysql
             - redis
