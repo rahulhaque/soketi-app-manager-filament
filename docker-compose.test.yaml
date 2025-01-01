@@ -10,8 +10,8 @@
 services:
     soketi-app-manager:
         build:
-            context: ./docker
-            dockerfile: Dockerfile
+            context: .
+            dockerfile: Dockerfile.coolify
         image: soketi-app-manager
         depends_on:
             mysql:
