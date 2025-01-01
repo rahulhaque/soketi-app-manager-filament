@@ -18,7 +18,7 @@ services:
             - redis
         environment:
             - PORT=8080
-            - APP_URL=$SERVICE_FQDN_NGINX
+            - APP_URL=$SERVICE_FQDN_SOKETIAPPMANAGER
             - APP_DEBUG=${APP_DEBUG:-false}
             - APP_KEY=$APP_KEY
             - DB_CONNECTION=mysql
@@ -42,6 +42,7 @@ services:
     mysql:
         image: 'mysql/mysql-server:8.0'
         environment:
+            - MYSQL_ROOT_HOST=%
             - MYSQL_DATABASE=${DB_DATABASE:-soketi_app_manager}
             - MYSQL_USER=${SERVICE_USER_MYSQL}
             - MYSQL_PASSWORD=${SERVICE_PASSWORD_MYSQL}
@@ -82,8 +83,3 @@ services:
         depends_on:
             - mysql
             - redis
-        healthcheck:
-            test: ["CMD-SHELL", "bash -c ':> /dev/tcp/127.0.0.1/6001' || exit 1"]
-            interval: 5s
-            timeout: 20s
-            retries: 3
