@@ -4,54 +4,44 @@
 # documentation: https://github.com/rahulhaque/soketi-app-manager-filament
 # slogan: Manage soketi websocket server and apps with ease.
 # tags: soketi,app-manager,tools
-# logo: svgs/soketi-app-manager-filament.svg
-# port: 80
+# logo: svgs/soketi-app-manager.svg
+# port: 8080
 
 services:
     soketi-app-manager:
         build:
             context: ./docker
             dockerfile: Dockerfile
-        image: soketi-app-manager-filament
+        image: soketi-app-manager
         depends_on:
             mysql:
                 condition: service_healthy # Important for auto database migration
         environment:
-            - SERVICE_FQDN_SOKETIAPPMANAGER
-            - APP_URL=$SERVICE_FQDN_SOKETIAPPMANAGER
+            - APP_URL=$SERVICE_FQDN_NGINX
             - APP_DEBUG=${APP_DEBUG:-false}
             - APP_KEY=$APP_KEY
             - DB_CONNECTION=mysql
-            - DB_HOST=$SERVICE_FQDN_MYSQL
-            - DB_PORT=${DB_PORT:-3306}
+            - DB_HOST=mysql
+            - DB_PORT=3306
             - DB_DATABASE=${DB_DATABASE:-soketi_app_manager}
-            - DB_USERNAME=$DB_USERNAME
-            - DB_PASSWORD=$DB_PASSWORD
-            - REDIS_HOST=$SERVICE_FQDN_REDIS
-            - REDIS_PASSWORD=$REDIS_PASSWORD
-            - REDIS_PORT=${REDIS_PORT:-6379}
-            - PUSHER_HOST=$SERVICE_FQDN_SOKETI
-            - PUSHER_PORT=${PUSHER_PORT:-6001}
+            - DB_USERNAME=$SERVICE_USER_MYSQL
+            - DB_PASSWORD=$SERVICE_PASSWORD_MYSQL
+            - REDIS_HOST=redis
+            - REDIS_PASSWORD=$SERVICE_PASSWORD_REDIS
+            - REDIS_PORT=6379
+            - PUSHER_HOST=soketi
+            - PUSHER_PORT=6001
             - PUSHER_SCHEME=${PUSHER_SCHEME:-http}
             - PUSHER_APP_CLUSTER=$PUSHER_APP_CLUSTER
-            - METRICS_HOST=$SERVICE_FQDN_SOKETI:9601
-        volumes:
-            - '.:/var/www/html'
-    
-    nginx:
-        image: 'nginx:stable-alpine3.17-slim'
-        depends_on:
-            - soketi-app-manager
-            - soketi
-        volumes:
-          - './docker/nginx.conf:/etc/nginx/conf.d/default.conf'
-          - '.:/var/www/html'
-
+            - METRICS_HOST=soketi:9601
+        healthcheck:
+            test: ["CMD", "php-fpm-healthcheck"]
+            start_period: 10s
+            timeout: 5s
+            interval: 5s
     mysql:
         image: 'mysql/mysql-server:8.0'
         environment:
-            - SERVICE_FQDN_MYSQL
-            - MYSQL_RANDOM_ROOT_PASSWORD='yes'
             - MYSQL_ROOT_HOST="%"
             - MYSQL_DATABASE=${DB_DATABASE:-soketi_app_manager}
             - MYSQL_USER=$SERVICE_USER_MYSQL
@@ -59,21 +49,18 @@ services:
         volumes:
             - './docker/data/mysql:/var/lib/mysql'
         healthcheck:
-            test: ["CMD", "mysqladmin", "ping", "-u", "${DB_USERNAME}", "-p${DB_PASSWORD}"]
+            test: ["CMD", "mysqladmin", "ping", "-u", "${SERVICE_USER_MYSQL}", "-p${SERVICE_PASSWORD_MYSQL}"]
             retries: 3
             timeout: 5s
             interval: 5s
-
     redis:
         image: 'redis:7.2-alpine'
-        command: redis-server --save 60 1 --loglevel warning --requirepass "${REDIS_PASSWORD}"
+        command: redis-server --save 60 1 --loglevel warning --requirepass "${SERVICE_PASSWORD_REDIS}"
         volumes:
             - './docker/data/redis:/data'
-
     soketi:
         image: 'quay.io/soketi/soketi:latest-16-alpine'
         environment:
-            - SERVICE_FQDN_SOKETI
             - SOKETI_DEBUG=${SOKETI_DEBUG:-false}
             - SOKETI_METRICS_ENABLED=${SOKETI_METRICS_ENABLED:-true}
             - SOKETI_WEBHOOKS_BATCHING=${SOKETI_WEBHOOKS_BATCHING:-true}
@@ -82,21 +69,25 @@ services:
             - SOKETI_QUEUE_DRIVER=redis
             - SOKETI_CACHE_DRIVER=redis
             - SOKETI_RATE_LIMITER_DRIVER=redis
-            - SOKETI_DB_MYSQL_HOST=$SERVICE_FQDN_MYSQL
-            - SOKETI_DB_MYSQL_PORT=$DB_PORT
-            - SOKETI_DB_MYSQL_USERNAME=$DB_USERNAME
-            - SOKETI_DB_MYSQL_PASSWORD=$DB_PASSWORD
+            - SOKETI_DB_MYSQL_HOST=mysql
+            - SOKETI_DB_MYSQL_PORT=3306
+            - SOKETI_DB_MYSQL_USERNAME=$SERVICE_USER_MYSQL
+            - SOKETI_DB_MYSQL_PASSWORD=$SERVICE_PASSWORD_MYSQL
             - SOKETI_DB_MYSQL_DATABASE=${DB_DATABASE:-soketi_app_manager}
             - SOKETI_APP_MANAGER_DRIVER=mysql
             - SOKETI_APP_MANAGER_MYSQL_TABLE=applications
             - SOKETI_APP_MANAGER_MYSQL_USE_V2=${SOKETI_APP_MANAGER_MYSQL_USE_V2:-true} # Change this if you're having issue connecting to MySQL
             - SOKETI_APP_MANAGER_CACHE_TTL=3600
-            - SOKETI_DB_REDIS_HOST=$SERVICE_FQDN_REDIS
-            - SOKETI_DB_REDIS_PORT=${REDIS_PORT:-6379}
-            - SOKETI_DB_REDIS_USERNAME=$SOKETI_DB_REDIS_USERNAME
-            - SOKETI_DB_REDIS_PASSWORD=$REDIS_PASSWORD
+            - SOKETI_DB_REDIS_HOST=redis
+            - SOKETI_DB_REDIS_PORT=6379
+            - SOKETI_DB_REDIS_PASSWORD=$SERVICE_PASSWORD_REDIS
             - SOKETI_DB_REDIS_DB=0
             - SOKETI_DB_REDIS_KEY_PREFIX=soketi_
         depends_on:
             - mysql
             - redis
+        healthcheck:
+            test: ["CMD-SHELL", "bash -c ':> /dev/tcp/127.0.0.1/6001' || exit 1"]
+            interval: 5s
+            timeout: 20s
+            retries: 3
