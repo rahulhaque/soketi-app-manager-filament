@@ -6,6 +6,7 @@ Simple frontend for [Soketi](https://soketi.app/) websocket server with a intuit
 - Dashboard to show realtime server stats and app connections.
 - Dashboard to show realtime Soketi application connections.
 - Create and manage (serve, view, edit, delete and filter) multiple Soketi applications.
+- Automatic soketi application cache management.
 - Interactive UI for managing Soketi application webhooks.
 - Interactive UI for managing webhook headers.
 - Interactive UI for managing webhook filters.
@@ -26,7 +27,7 @@ I invest a lot of time and effort in open-source. If you like this project, plea
 - MySQL^8|PostgreSQL^13.3
 - Redis^6
 - NodeJS^14
-- Soketi running with MySQL|PostgreSQL
+- Soketi running with MySQL|PostgreSQL and Redis caching enabled
 
 ## Local Installation
 
