@@ -1,4 +1,15 @@
 .github
+.vscode
+.idea
+.fleet
 docker
 screenshots
-vendor
+Dockerfile.coolify
+nginx.conf
+soketi.service
+.env
+.env.backup
+.env.production
+.env.docker
+.env.coolify.example
+.env.example
