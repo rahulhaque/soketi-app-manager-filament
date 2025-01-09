@@ -1,0 +1,28 @@
+# This dockerfile creates an standalone
+# image for the base application only.
+
+FROM serversideup/php:8.1-fpm-nginx-alpine
+
+LABEL org.opencontainers.image.authors="Rahul Haque <rahulhaque07@gmail.com>"
+LABEL org.opencontainers.image.source=https://github.com/rahulhaque/soketi-app-manager-filament
+LABEL org.opencontainers.image.description="Manage soketi websocket server and apps with ease."
+LABEL org.opencontainers.image.licenses=GPL-3.0
+
+ENV PHP_OPCACHE_ENABLE=1
+
+USER root
+
+# Install PHP extensions
+RUN install-php-extensions intl
+
+# Copy project files
+COPY --chown=www-data:www-data . /var/www/html
+
+# Switch to non-root user
+USER www-data
+
+# Install PHP dependencies
+RUN composer install --no-interaction --optimize-autoloader --no-dev \
+    && rm -rf /var/www/html/.composer/cache
+
+EXPOSE 8080
