@@ -118,7 +118,7 @@ docker compose down
 
 Follow the steps to deploy in [Coolify](https://coolify.io/) -
 
-- Create a Dockerfile application and copy paste the content from `Dockerfile.coolify`.
+- Create a Docker Compose application and copy paste the content from `docker-compose.coolify.yml`.
 - Go to `Environment Variables` > `Developer View` and copy paste the content from `.env.coolify.example`.
 - Before you set up the environment variables, make sure to create and deploy your preferred **database**, **redis** and **soketi** services.
 - Come back to **soketi-app-manager-filament** service and set up the environment variables except `APP_KEY`.
