@@ -118,10 +118,9 @@ docker compose down
 
 Follow the steps to deploy in [Coolify](https://coolify.io/) -
 
-- Create a Docker Compose application and copy paste the content from `docker-compose.coolify.yml`.
-- Go to `Environment Variables` > `Developer View` and copy paste the content from `.env.coolify.example`.
-- Before you set up the environment variables, make sure to create and deploy your preferred **database**, **redis** and **soketi** services.
-- Come back to **soketi-app-manager-filament** service and set up the environment variables except `APP_KEY`.
+- Create a `Docker Compose` application and copy paste the content from `docker-compose.coolify.yml`.
+- Create and deploy your preferred MySQL or PostgreSQL **database**, **redis** and **soketi** services.
+- Go to `Environment Variables` of Soketi App Manager service and fill out the variables except `APP_KEY`.
 - Click `Save` and `Deploy`.
 - After that go to terminal and run the followin -
 ```bash
@@ -129,7 +128,7 @@ Follow the steps to deploy in [Coolify](https://coolify.io/) -
 php artisan key:generate --show
 
 # Migrate the database
-php artisan migrate --seed
+php artisan db:seed
 ```
 - Set the `APP_KEY` environment variable and `Restart` the service.
 
