@@ -38,7 +38,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->font(
                 'Inter',
-                url: asset('css/app/fonts.css'),
+                url: asset('css/app/fonts.css', app()->environment('production')),
                 provider: LocalFontProvider::class,
             )
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
