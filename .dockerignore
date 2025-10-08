@@ -13,3 +13,4 @@ soketi.service
 .env.docker
 .env.coolify.example
 .env.example
+.cruise
