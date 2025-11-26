@@ -1,4 +1,4 @@
-blank_issues_enabled: false
+blank_issues_enabled: true
 contact_links:
   - name: Ask a Question
     url: https://github.com/rahulhaque/soketi-app-manager-filament/discussions/new?category=q-a
@@ -6,6 +6,3 @@ contact_links:
   - name: Feature Request
     url: https://github.com/rahulhaque/soketi-app-manager-filament/discussions/new?category=ideas
     about: Share ideas for new features
-  - name: Bug Report
-    url: https://github.com/rahulhaque/soketi-app-manager-filament/issues/new
-    about: Report a reproducable bug
