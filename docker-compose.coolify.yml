@@ -5,28 +5,29 @@
 # port: 8080
 
 services:
-  soketi-app-manager:
-    image: ghcr.io/rahulhaque/soketi-app-manager-filament-alpine:latest
-    environment:
-      - SERVICE_FQDN_SOKETIAPPMANAGER_8080
-      - AUTORUN_ENABLED=true
-      - AUTORUN_LARAVEL_MIGRATION=${AUTORUN_LARAVEL_MIGRATION:-true}
-      - APP_DEBUG=${APP_DEBUG:-false}
-      - APP_URL=$SERVICE_FQDN_SOKETIAPPMANAGER
-      - APP_KEY=$APP_KEY
-      - DB_CONNECTION=$DB_CONNECTION # `mysql` or `pgsql`
-      - DB_HOST=$DB_HOST # Paste from Coolify
-      - DB_PORT=$DB_PORT # Paste from Coolify
-      - DB_DATABASE=$DB_DATABASE # Paste from Coolify
-      - DB_USERNAME=$DB_USERNAME # Paste from Coolify
-      - DB_PASSWORD=$DB_PASSWORD # Paste from Coolify
-      - PUSHER_HOST=$PUSHER_HOST # Paste from Soketi. Required for playground
-      - PUSHER_PORT=$PUSHER_PORT # Paste from Soketi. Required for playground
-      - PUSHER_SCHEME=$PUSHER_SCHEME # `http` or `https`
-      - PUSHER_APP_CLUSTER=$PUSHER_APP_CLUSTER # Paste from Soketi. Required for playground
-      - SOKETI_DB_REDIS_USERNAME=$SOKETI_DB_REDIS_USERNAME # Paste from Coolify. Required for cleaning app cache
-      - SOKETI_DB_REDIS_PASSWORD=$SOKETI_DB_REDIS_PASSWORD # Paste from Coolify. Required for cleaning app cache
-      - METRICS_HOST=$METRICS_HOST # Paste from Soketi.
-    healthcheck:
-      test: ["CMD", "php-fpm-healthcheck"]
-      start_period: 10s
+    soketi-app-manager:
+        image: ghcr.io/rahulhaque/soketi-app-manager-filament-alpine:latest
+        environment:
+            - SERVICE_FQDN_SOKETIAPPMANAGER_8080
+            - AUTORUN_ENABLED=true
+            - AUTORUN_LARAVEL_MIGRATION=${AUTORUN_LARAVEL_MIGRATION:-true}
+            - AUTORUN_LARAVEL_MIGRATION_SEED=${AUTORUN_LARAVEL_SEED:-true}
+            - APP_DEBUG=${APP_DEBUG:-false}
+            - APP_URL=$SERVICE_FQDN_SOKETIAPPMANAGER
+            - APP_KEY=$APP_KEY
+            - DB_CONNECTION=$DB_CONNECTION # `mysql` or `pgsql`
+            - DB_HOST=$DB_HOST # Paste from Coolify
+            - DB_PORT=$DB_PORT # Paste from Coolify
+            - DB_DATABASE=$DB_DATABASE # Paste from Coolify
+            - DB_USERNAME=$DB_USERNAME # Paste from Coolify
+            - DB_PASSWORD=$DB_PASSWORD # Paste from Coolify
+            - PUSHER_HOST=$PUSHER_HOST # Paste from Soketi. Required for playground
+            - PUSHER_PORT=$PUSHER_PORT # Paste from Soketi. Required for playground
+            - PUSHER_SCHEME=$PUSHER_SCHEME # `http` or `https`
+            - PUSHER_APP_CLUSTER=$PUSHER_APP_CLUSTER # Paste from Soketi. Required for playground
+            - SOKETI_DB_REDIS_USERNAME=$SOKETI_DB_REDIS_USERNAME # Paste from Coolify. Required for cleaning app cache
+            - SOKETI_DB_REDIS_PASSWORD=$SOKETI_DB_REDIS_PASSWORD # Paste from Coolify. Required for cleaning app cache
+            - METRICS_HOST=$METRICS_HOST # Paste from Soketi.
+        healthcheck:
+            test: ["CMD", "php-fpm-healthcheck"]
+            start_period: 10s

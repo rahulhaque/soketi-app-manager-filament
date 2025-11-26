@@ -89,22 +89,14 @@ docker compose build
 # > Install composer dependencies
 # > Generate application key
 # > Run database migration
+# > Create admin user
 # Press `ctrl-c` when done
 docker compose up
 
 # Now run it in background
 docker compose up -d
 
-# Drop to application shell
-docker compose exec -u soketi soketi-app-manager bash
-
-# Seed database
-php artisan db:seed
-
-# Logout from shell
-exit
-
-# Visit application
+# Visit the application
 http://localhost:APP_PORT
 
 # Stop the application or
