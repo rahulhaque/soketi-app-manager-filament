@@ -4,7 +4,7 @@ LABEL maintainer="Rahul Haque <rahulhaque07@gmail.com>"
 
 ARG WWWGROUP=1000
 ARG WWWUSER=1000
-ARG PHP_VERSION=8.1
+ARG PHP_VERSION=8.3
 
 WORKDIR /var/www/html
 

@@ -22,7 +22,7 @@ I invest a lot of time and effort in open-source. If you like this project, plea
 
 ## Requirements
 
-- PHP^8.1
+- PHP^8.3
 - Composer^2
 - MySQL^8|PostgreSQL^13.3
 - Redis^6

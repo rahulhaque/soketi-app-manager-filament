@@ -1,7 +1,7 @@
 # This dockerfile creates an standalone
 # image for the base application only.
 
-FROM serversideup/php:8.1-fpm-nginx-alpine
+FROM serversideup/php:8.3-fpm-nginx-alpine
 
 LABEL org.opencontainers.image.authors="Rahul Haque <rahulhaque07@gmail.com>"
 LABEL org.opencontainers.image.source=https://github.com/rahulhaque/soketi-app-manager-filament
