@@ -5,6 +5,10 @@ All notable changes to `laravel-filepond` will be documented in this file.
 Every major releases specific to Laravel framework versions includes all of the changes below.
 Please, use the corresponding version for your project or update if already installed.
 
+## 1.1.8 - 2026-10-30
+
+- Laravel, NPM, FilamentPHP security update. 🔒️
+
 ## 1.1.7 - 2026-08-30
 
 - Laravel, NPM, FilamentPHP security update. 🔒️
